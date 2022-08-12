@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<style>
+    body{
+      font-size: 16px;
+      background-color: darkorchid;    
+    }
+    .container{
+        background-color: white;
+        text-align: center;
+        width: 90%;
+        height: 100%;
+        margin-top: 10px;
+    }
+</style>
+</head>
+<body>
+    <div class="container" >
+        <div class="col-sm-4"></div>
+        
+        <div class="col-sm-8"><h4>Add to Card</h4></div>
+        <br><br>
+        <div style ="border-radius: 7px; background-color: burlywood;" class="row1"><p class="col-sm-8" id ="first">bjt </p><button type="button" class="btn btn-success" onclick="button1()"> + </button><button type="button" class="btn btn-danger" onclick="subtract1()"> - </button></div>
+        <br>
+        <div style ="border-radius: 7px; background-color: burlywood;" class="row1"><p class="col-sm-8" id ="nd">bjt </p><button type="button" class="btn btn-success" class="col-sm-4" onclick="button2()"> + </button>&nbsp;<button type="button" class="btn btn-danger" onclick="subtract2()"> - </button></div>
+        <br>
+        <div style ="border-radius: 7px; background-color: burlywood;" class="row1"><p class="col-sm-8" id ="rd">bjt </p><button type="button" class="btn btn-success" class="col-sm-4" onclick="button3()"> + </button>&nbsp;<button type="button" class="btn btn-danger" onclick="subtract3()"> - </button></div>
+        <br>
+        <div style ="border-radius: 7px; background-color: burlywood;" class="row1"><p class="col-sm-8" id ="th">bjt </p><button type="button" class="btn btn-success" class="col-sm-4" onclick="button4()"> + </button>&nbsp;<button type="button" class="btn btn-danger" onclick="subtract4()"> - </button></div>
+        <br>
+        <!--<button type="button" class="btn btn-primary">Total Amount: </button>-->
+        <div style ="border-radius: 7px; background-color: burlywood;" class="Final"><p class="col-sm-8" id ="total">Total Amount:- </p></div>
+        
+    </div>
+</body>
+<script>
+    let Sum =0;
+    var p1,p2,p3,p4;
+    let c1=0,c2=0,c3=0,c4=0;
+    fetch ('https://localhost:5001/items')
+        .then( (apidata) => {
+            //console.log(apidata);
+            return apidata.json();
+        })
+        .then( (actualdata) => {
+            var detail = actualdata[0];
+            console.log("details", detail);
+            //console.log("item details are:",actualdata);
+            //ssconsole.log(actualdata.items[1].id);
+            document.getElementById('first').innerHTML =`Item: ${detail.name} Price: ${detail.price}`;
+            p1 = detail.price
+            var second = actualdata[1];
+            console.log("details", second);
+            document.getElementById('nd').innerHTML =`Item: ${second.name} Price:  ${second.price}`;
+            p2 = second.price
+            var third = actualdata[2];
+            console.log("details", third);
+            document.getElementById('rd').innerHTML =` Item: ${third.name}  Price:  ${third.price}`;
+            p3 = third.price
+            var fourth = actualdata[3];
+            console.log("details", fourth);
+            document.getElementById('th').innerHTML =`Item: ${fourth.name} Price:  ${fourth.price}`;
+            p4 = fourth.price;
+
+        })
+        .catch( (error) => {
+            console.log(`The Error : ${error}`);
+        });
+        function button1(){
+            c1+=1
+            Sum+=p1
+            //alert(Sum)
+            document.getElementById('total').innerHTML =`Total Amount: ${Sum}`;
+        }
+        function button2(){
+            c2+=1
+            Sum+=p2
+            //alert(c2+ ' '+Sum)
+            document.getElementById('total').innerHTML =`Total Amount: ${Sum}`;
+        }
+        function button3(){
+            c3+=1
+            Sum+=p3
+            //alert(Sum)
+            document.getElementById('total').innerHTML =`Total Amount: ${Sum}`;
+        }
+        function button4(){
+            c4+=1
+            Sum+=p4
+            //alert(Sum)
+            document.getElementById('total').innerHTML =`Total Amount: ${Sum}`;
+        }
+        function subtract1(){
+            c1 -=1
+            if (c1 >= 0){
+                Sum-=p1
+                //alert(c1+' '+Sum)
+                document.getElementById('total').innerHTML =`Total Amount: ${Sum}`;
+            } else {
+                c1+=1
+            }  
+
+        }
+        function subtract2(){
+            c2 -=1
+            if (c2 >= 0){
+                Sum-=p2
+                //alert(c2+' '+Sum)
+                document.getElementById('total').innerHTML =`Total Amount: ${Sum}`;
+
+            } else {
+                c2+=1
+            }  
+
+        }
+        function subtract3(){
+            c3 -=1
+            if (c3 >= 0){
+                Sum-=p3
+                //alert(c3+' '+Sum)
+                document.getElementById('total').innerHTML =`Total Amount: ${Sum}`;
+
+            } else {
+                c3+=1
+            }  
+
+        }
+        function subtract4(){
+            c4 -=1
+            if (c4 >= 0){
+                Sum-=p4
+                
+                document.getElementById('total').innerHTML =`Total Amount: ${Sum}`;
+
+            } else {
+                c4+=1
+            }  
+
+        }
+
+
+
+</script>
+</html>
